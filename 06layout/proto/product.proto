@@ -1,0 +1,24 @@
+syntax="proto3";
+
+package proto;
+import "google/api/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+message ProductReq{
+    string name=1;
+}
+
+message ProductResp{
+    int32 product_id=1;
+    string name=2;
+}
+
+service Product{
+    rpc PostProduct(ProductReq) returns(ProductResp){
+        option (google.api.http)={
+                post: "/postproduct"
+                body: "*"
+            };
+    }
+}
+

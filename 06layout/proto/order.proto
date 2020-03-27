@@ -1,0 +1,26 @@
+syntax="proto3";
+
+package proto;
+import "google/api/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+message OrderReq{
+    int32 order_id=1  [(validator.field) = {string_not_empty :true}];
+    int32 user_id=2 [(validator.field) = {string_not_empty :true}];
+    int32 product_id=3 [(validator.field) = {string_not_empty :true}];
+    string addr=4;
+}
+
+message OrderResp{
+    string msg=1;
+}
+
+service Order{
+    rpc PostOrder(OrderReq) returns(OrderResp){
+        option (google.api.http)={
+            post: "/postorder"
+            body: "*"
+        };
+    }
+}
+
